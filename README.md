@@ -1,6 +1,4 @@
-# sap-demo
-
-> SAP Ariba procurement/provenance layer
+#Flashcards - Demo
 
 ## Build Setup
 
