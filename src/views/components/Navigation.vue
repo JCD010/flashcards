@@ -5,6 +5,9 @@
 		.nav__right
 			img(src='/static/create-icon-white.svg').nav__create-icon
 			p.create Create
+			a(
+				href="/"
+			).home.active Home
 			p.about About
 			p.login Login
 			p.signup Sign Up
@@ -18,10 +21,10 @@
 				.bar
 
 		transition(name="fade")
-			.hamburger-menu-items(
+			.hamburger-menu__container(
 				v-if="open === true"
 			)
-				h1 Test
+				.hamburger-menu__items
 </template>
 
 <script>
@@ -35,18 +38,17 @@ export default {
 	methods: {
 		// Closes the hamburger menu on window resize
 		onResize(event) {
-			console.log('window has been resized', event)
 			if (this.open === true) {
 				this.open = false
 			}
 		},
 	},
 	mounted() {
-		// Register an event listener when the Vue component is ready
+		// Registers an event listener when the Vue component is ready
 		window.addEventListener('resize', this.onResize)
 	},
 	beforeDestroy() {
-		// Unregister the event listener before destroying this Vue instance
+		// Unregisters the event listener before destroying this Vue instance
 		window.removeEventListener('resize', this.onResize)
 	},
 }
@@ -71,14 +73,16 @@ nav {
 	justify-content: flex-end;
 	align-items: center;
 	width: calc(100% - 108px);
+	padding-right: 10px;
 }
 
 .nav__logo {
-	width: 80px;
+	width: 65px;
 	margin: 0;
 	padding: 14px;
 	opacity: 0.9;
 	transition: 0.2s all ease;
+	cursor: pointer;
 
 	&:hover {
 		opacity: 1;
@@ -88,28 +92,43 @@ nav {
 .nav__create-icon {
 	width: 30px;
 	margin: 8px;
+	cursor: pointer;
 
 	@media (max-width: $break-mobile) {
 		display: none;
 	}
 }
 
-.create, .about, .login, .signup {
+.home, .create, .about, .login, .signup {
+	text-decoration: none;
 	color: white;
 	font-family: 'Avenir', sans-serif;
 	font-weight: 500;
-	font-size: 20px;
+	font-size: 16px;
 	letter-spacing: -0.5px;
 	margin: 0 8px;
 	opacity: 0.8;
 	transition: 0.2s all ease;
+	line-height: 57px;
+	border-bottom: solid 4px transparent;
+	cursor: pointer;
 
 	@media (max-width: $break-mobile) {
 		display: none;
 	}
 
 	&:hover {
-		opacity: 1;
+		// opacity: 1;
+		border-bottom: solid 4px #ffbaba;
+	}
+}
+
+.active {
+	border-bottom: solid 4px #9e4444;
+	opacity: 1;
+
+	&:hover {
+		border-bottom: solid 4px #9e4444;
 	}
 }
 
@@ -172,7 +191,7 @@ nav {
 	left: 0px;
 }
 
-.hamburger-menu-items {
+.hamburger-menu__container {
 	position: absolute;
 	color: white;
 	left: 0;
@@ -183,6 +202,10 @@ nav {
 	@media (min-width: $break-mobile) {
 		display: none;
 	}
+}
+
+.hamburger-menu__items {
+	height: 250px;
 }
 
 .fade-enter-active, .fade-leave-active {

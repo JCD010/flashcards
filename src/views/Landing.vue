@@ -1,7 +1,7 @@
 <template lang="pug">
 	.Landing: .grid.grid--center
 		.grid__item.desk--two-thirds.lap--two-thirds
-			h1 Landing page
+			//- h1 Landing page
 </template>
 
 <script>
