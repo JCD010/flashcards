@@ -17,10 +17,11 @@
 				.bar
 				.bar
 
-		.hamburger-menu-items(
-			v-if="open === true"
-		)
-			h1 Test
+		transition(name="fade")
+			.hamburger-menu-items(
+				v-if="open === true"
+			)
+				h1 Test
 </template>
 
 <script>
@@ -32,6 +33,21 @@ export default {
 		}
 	},
 	methods: {
+		// Closes the hamburger menu on window resize
+		onResize(event) {
+			console.log('window has been resized', event)
+			if (this.open === true) {
+				this.open = false
+			}
+		},
+	},
+	mounted() {
+		// Register an event listener when the Vue component is ready
+		window.addEventListener('resize', this.onResize)
+	},
+	beforeDestroy() {
+		// Unregister the event listener before destroying this Vue instance
+		window.removeEventListener('resize', this.onResize)
 	},
 }
 </script>
@@ -167,5 +183,12 @@ nav {
 	@media (min-width: $break-mobile) {
 		display: none;
 	}
+}
+
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+	opacity: 0
 }
 </style>
